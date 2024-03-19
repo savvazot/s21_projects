@@ -1,0 +1,111 @@
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "../s21_string.h"
+
+#suite s21_sprintf
+
+// Global variables as fixtures.
+char std_dest[100], s21_dest[100];
+int std_result, s21_result;
+
+
+// Tests
+#test s21_sprintf_format_without_specifiers
+std_result = sprintf(std_dest, "format without specs");
+s21_result = s21_sprintf(s21_dest, "format without specs");
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_d_only_int_min
+// Check result if format has no other keys except %d.
+// We are using INT_MIN to test the edge case coversion.
+std_result = sprintf(std_dest, "%d", 3);
+s21_result = s21_sprintf(s21_dest, "%d", 3);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+#test s21_sprintf_i_only_int_min
+// Check result if format has no other keys except %i.
+std_result = sprintf(std_dest, "%i", INT_MIN);
+s21_result = s21_sprintf(s21_dest, "%i", INT_MIN);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+#test s21_sprintf_c_only
+// Check result if format has no other keys except %c.
+std_result = sprintf(std_dest, "%c", 'T');
+s21_result = s21_sprintf(s21_dest, "%c", 'T');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_two_c_flags
+// Check result if format has no other keys except %c.
+std_result = sprintf(std_dest, "%c %c", 'T', 's');
+s21_result = s21_sprintf(s21_dest, "%c %c", 'T', 's');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_f_only
+std_result = sprintf(std_dest, "%f", 3.14);
+s21_result = s21_sprintf(s21_dest, "%f", 3.14);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_f_rounding
+std_result = sprintf(std_dest, "%f", 19.999995);
+s21_result = s21_sprintf(s21_dest, "%f", 19.999995);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_s_flag_only
+// Compare results when %s specifier is used only.
+char src_string[] = "Some string";
+std_result = sprintf(std_dest, "%s", src_string);
+s21_result = s21_sprintf(s21_dest, "%s", src_string);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_percent_flag_only
+// Compare results when `%%` is used as format string.
+std_result = sprintf(std_dest, "%%");
+s21_result = s21_sprintf(s21_dest, "%%");
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_u_specifier_only_in_range_of_int
+// Test `u` specifier only. In range of int
+std_result = sprintf(std_dest, "%u", 100);
+s21_result = s21_sprintf(s21_dest, "%u", 100);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+
+// Flags
+// ----------------------------------------------------------------------------
+
+
+#test s21_sprintf_incompatible_flags
+// When precision is set zero left padding should be ignored.
+s21_result = s21_sprintf(s21_dest, "%+010.5d", -10);
+std_result = sprintf(std_dest, "%+10.5d", -10);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+
+#test s21_sprintf_several_specifiers
+// `x` with # flag and null value
+std_result = sprintf(std_dest, "hello %10d %c %s", 100, 'a', "123");
+s21_result = s21_sprintf(s21_dest, "hello %10d %c %s", 100, 'a', "123");
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);

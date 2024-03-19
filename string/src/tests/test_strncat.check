@@ -1,0 +1,70 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strncat
+
+#test s21_strncat_append_empty_sting_to_dest
+// Test appending empty string returns same string
+char dest[10] = "hello";
+char s21_dest[10] = "hello";
+char src[] = "";
+s21_size_t amount = 5;
+ck_assert_str_eq(strncat(dest, src, amount), s21_strncat(s21_dest, src, amount));
+
+#test s21_strncat_append_not_empty_sting_by_not_empty
+// Test normal behavior. `dest` should be appended in place.
+char dest[100] = "dest";
+char s21_dest[100] = "dest";
+char src[] = " source";
+s21_size_t amount = 5;
+ck_assert_str_eq(strncat(dest, src, amount), s21_strncat(s21_dest, src, amount));
+
+#test test_s21_strncat_append_string_to_empty_dest
+// Test normal behavior. strncat should return pointer to appended string.
+char dest[10] = "";
+char s21_dest[10] = "";
+char src[] = " source";
+s21_size_t amount = 2;
+ck_assert_str_eq(strncat(dest, src, amount), s21_strncat(s21_dest, src, amount));
+
+#test test_s21_strncat_append_str_to_a_non_empty_dest_by_one
+char str1[9] = "abc";
+char str2[9] = "abc";
+char str3[] = "def";
+int n = 1;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));
+
+#test test_s21_strncat_append_str_to_a_non_empty_dest_with_null_terminator_by_one
+char str1[9] = "ab\0c";
+char str2[9] = "ab\0c";
+char str3[] = "def";
+int n = 1;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));
+
+#test test_s21_strncat_append_str_to_dest_with_negative_size_and_null_terminator
+char str1[9] = "ab\0c";
+char str2[9] = "ab\0c";
+char str3[] = "def";
+int n = -4;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));
+
+#test test_s21_strncat_append_str_to_dest_with_negative_size_and_null_terminator_in_src
+char str1[9] = "abc";
+char str2[9] = "abc";
+char str3[] = "de\0f";
+int n = -4;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));
+
+#test test_s21_strncat_append_str_to_an_empty_dest_with_negative_size
+char str1[9] = "";
+char str2[9] = "";
+char str3[] = "def";
+int n = -1;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));
+
+#test test_s21_strncat_append_empty_str_to_empty_with_negative_size
+char str1[9] = "";
+char str2[9] = "";
+char str3[] = "";
+int n = -1;
+ck_assert_str_eq(strncat(str1, str3, n), s21_strncat(str2, str3, n));

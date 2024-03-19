@@ -1,0 +1,23 @@
+#include "../s21_string.h"
+#include <string.h>
+
+# suite s21_strchr
+
+#test s21_strchr_not_existed_char_in_string
+// Try to find non existed char in the string. Should return NULL.
+char str[20] = "sometext";
+char non_existed_char = 'a';
+ck_assert_ptr_eq(strchr(str, non_existed_char),
+                 s21_strchr(str, non_existed_char));
+
+#test s21_strchr_null_char_return_null
+// Try to find '\0' char in the string. Should return NULL.
+char str[20] = "sometext";
+char null_char = '\0';
+ck_assert_ptr_eq(strchr(str, null_char), s21_strchr(str, null_char));
+
+#test s21_existed_char_returns_pointer
+// Normal behavior. Find existed char in the string. Should return pointer.
+char str[20] = "sometext";
+char char_to_find = 't';
+ck_assert_ptr_eq(strchr(str, char_to_find), s21_strchr(str, char_to_find));

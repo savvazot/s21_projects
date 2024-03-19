@@ -1,0 +1,60 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_memchr
+
+#test s21_memchr_str_is_null
+char string[] = "\0";
+char to_find = 'w';
+int range = 1;
+ck_assert_ptr_eq(memchr(string, to_find, range),
+                 s21_memchr(string, to_find, range));
+
+#test s21_memchr_char_to_find_is_null
+char string[] = "hello world";
+char to_find = '\0';
+int range = 5;
+ck_assert_ptr_eq(memchr(string, to_find, range),
+                 s21_memchr(string, to_find, range));
+
+#test s21_memchr_existed_char_in_range
+char string[] = "hello world";
+char char_to_find = 'w';
+int range = 10;
+ck_assert_ptr_eq(memchr(string, char_to_find, range),
+                 s21_memchr(string, char_to_find, range));
+
+#test s21_memchr_existed_char_not_range
+char string[] = "hello world";
+char char_to_find = 'w';
+int range = 3;
+ck_assert_ptr_eq(memchr(string, char_to_find, range),
+                 s21_memchr(string, char_to_find, range));
+
+#test s21_memchr_not_existed_char
+char string[] = "hello world";
+char char_to_find = 'T';
+int range = 10;
+ck_assert_ptr_eq(memchr(string, char_to_find, range),
+                 s21_memchr(string, char_to_find, range));
+
+#test s21_memchr_stop_before_find
+char str1[] = "abc";
+int c = 'c';
+size_t n = 2;
+ck_assert_ptr_eq(memchr(str1, c, n), s21_memchr(str1, c, n));
+
+
+#test memchr_find_num_in_array_num
+int array[] = {1, 2, 3, 666, 5, 99, 100};
+size_t n_byte = sizeof(int) * 7;
+int find_byte = 666;
+ck_assert_ptr_eq(s21_memchr(array, find_byte, n_byte),
+                memchr(array, find_byte, n_byte));
+
+#test memchr_find_empty_str
+size_t n_byte = 0;
+char str[10] = "";
+int find_byte = '\0';
+ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                memchr(str, find_byte, n_byte));

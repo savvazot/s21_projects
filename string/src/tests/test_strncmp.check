@@ -1,0 +1,28 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strncmp
+
+// According to POSIX standard the return value should be less, eq, greater
+//than 0 but there is no strict rules to the value.
+
+#test s21_strncmp_comparing_n_bigger_than_sting_length
+char string_1[] = "Pizza Italiano";
+char string_2[] = "Pizza Italiano Pepperoni";
+s21_size_t size = 100;
+ck_assert_int_lt(s21_strncmp(string_1, string_2, size), 0);
+ck_assert_int_lt(strncmp(string_1, string_2, size), 0);
+
+#test s21_strncmp_different_length_but_comparing_chars_equal
+char string_1[30] = "Lazania";
+char string_2[30] = "Lazania with mushrooms";
+s21_size_t size = 7;
+ck_assert_int_eq(s21_strncmp(string_1, string_2, size),
+                 strncmp(string_1, string_2, size));
+
+#test s21_strncmp_comparing_with_empty_string
+char string_1[] = "Nollan is GENIUS";
+char string_2[] = "";
+s21_size_t size = 2;
+ck_assert_int_gt(s21_strncmp(string_1, string_2, size), 0);
+ck_assert_int_gt(strncmp(string_1, string_2, size), 0);

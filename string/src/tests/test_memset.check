@@ -1,0 +1,25 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_memset
+
+#test s21_memset_change_first_three_char_in_string
+char dest[] = "destination string";
+char s21_dest[] = "destination string";
+char char_to_set = 'X';
+ck_assert_str_eq(memset(dest, char_to_set, 3),
+                 s21_memset(s21_dest, char_to_set, 3));
+
+#test s21_memset_change_first_three_char_in_string_with_null
+char dest[] = "destination string";
+char s21_dest[] = "destination string";
+char char_to_set = '\0';
+ck_assert_str_eq(memset(dest, char_to_set, 3),
+                 s21_memset(s21_dest, char_to_set, 3));
+
+#test s21_memset_change_null_string_with_character
+char dest[] = "\0";
+char s21_dest[] = "\0";
+char char_to_set = 'a';
+ck_assert_str_eq(memset(dest, char_to_set, 1),
+                 s21_memset(s21_dest, char_to_set, 1));

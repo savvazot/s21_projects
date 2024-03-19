@@ -1,0 +1,25 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_memcpy
+
+#test s21_memcpy_copy_empty_string
+char dest[100] = "some string";
+char s21_dest[100] = "some string";
+char src[] = "";
+ck_assert_str_eq((char *)memcpy(dest, src, 1),
+                 (char *)s21_memcpy(s21_dest, src, 1));
+
+#test s21_memcpy_copy_non_empty_string
+char dest[100] = "text destination";
+char s21_dest[100] = "text destination";
+char src[] = "text_to_copy";
+ck_assert_str_eq((char *)memcpy(dest, src, 13),
+                 (char *)s21_memcpy(s21_dest, src, 13));
+
+#test s21_memcpy_copy_int_array
+int dest[100] = {0};
+int s21_dest[100] = {0};
+int src[] = {1, 2, 3};
+ck_assert_mem_eq((int *)s21_memcpy(dest, src, sizeof(int) * 3),
+                 (int *)memcpy(s21_dest, src, sizeof(int) * 3), 100);

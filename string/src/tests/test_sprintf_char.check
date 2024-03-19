@@ -1,0 +1,43 @@
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "../s21_string.h"
+
+#suite s21_sprintf_char
+
+// Global variables as fixtures.
+char std_dest[100], s21_dest[100];
+int std_result, s21_result;
+
+
+#test s21_sprintf_c_specifier_only
+// Only c specifier without anything else
+std_result = sprintf(std_dest, "%c", 'c');
+s21_result = s21_sprintf(s21_dest, "%c", 'c');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_char_with_width
+// Only c specifier with width flag
+std_result = sprintf(std_dest, "%59c", 'c');
+s21_result = s21_sprintf(s21_dest, "%59c", 'c');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_char_with_width_left_justified
+// Only c specifier with width flag and left justified flag
+std_result = sprintf(std_dest, "%-59c", 'c');
+s21_result = s21_sprintf(s21_dest, "%-59c", 'c');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_wide_char_with_width_left_justified
+// Wide c character with width and left justified
+std_result = sprintf(std_dest, "%-50lc", L'c');
+s21_result = s21_sprintf(s21_dest, "%-50lc", L'c');
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);

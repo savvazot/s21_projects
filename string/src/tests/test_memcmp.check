@@ -1,0 +1,39 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_memcmp
+
+#test s21_memcmp_same_strings
+char string_1[] = "same string";
+char string_2[] = "same string";
+ck_assert_int_eq(memcmp(string_1, string_2, 12),
+                 s21_memcmp(string_1, string_2, 12));
+
+#test s21_memcmp_different_string_but_same_comparable_bytes
+char string_1[] = "1234";
+char string_2[] = "1235";
+ck_assert_int_eq(memcmp(string_1, string_2, 3),
+                 s21_memcmp(string_1, string_2, 3));
+
+#test s21_memcmp_first_string_bigger
+char string_1[] = "4321";
+char string_2[] = "1235";
+ck_assert_int_gt(s21_memcmp(string_1, string_2, 10), 0);
+
+
+#test s21_memcmp_second_string_bigger
+char string_1[] = "1235";
+char string_2[] = "4321";
+ck_assert_int_lt(s21_memcmp(string_1, string_2, 10), 0);
+
+#test s21_memcmp_empty_strings
+char string_1[] = "";
+char string_2[] = "";
+ck_assert_int_eq(memcmp(string_1, string_2, 1),
+                 s21_memcmp(string_1, string_2, 1));
+
+#test s21_memcmp_different_string_compare_null_bytes
+char string_1[] = "4321";
+char string_2[] = "1234";
+ck_assert_int_eq(memcmp(string_1, string_2, 0),
+                 s21_memcmp(string_1, string_2, 0));

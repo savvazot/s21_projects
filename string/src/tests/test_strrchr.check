@@ -1,0 +1,39 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strrchr
+
+#test test_s21_strrchr_normal_behaviour_1
+// Try to find last occurrence of the character
+char str[20] = "word1 word2 word3";
+char s21_str[20] = "word1 word2 word3";
+char chr = 'd';
+ck_assert_str_eq(strrchr(str, chr), s21_strrchr(s21_str, chr));
+
+#test test_s21_strrchr_normal_behaviour_2
+// Try to find last occurrence of the character
+char str[20] = "word1 word10";
+char s21_str[20] = "word1 word10";
+char chr = '1';
+ck_assert_str_eq(strrchr(str, chr), s21_strrchr(s21_str, chr));
+
+#test test_s21_strrchr_with_null_terminator
+// Try to find last occurrence of the character
+char str[20] = "word1 word\02";
+char s21_str[20] = "word1 word\02";
+char chr = 'd';
+ck_assert_str_eq(strrchr(str, chr), s21_strrchr(s21_str, chr));
+
+#test test_s21_strrchr_find_null_terminator
+// Try to find last occurrence of the character
+char str[20] = "word1\0 word\02";
+char s21_str[20] = "word1\0 word\02";
+char chr = '\0';
+ck_assert_str_eq(strrchr(str, chr), s21_strrchr(s21_str, chr));
+
+#test test_s21_strrchr_find_non_existed_chr
+// Try to find last occurrence of the character
+char str[20] = "word1 word2";
+char s21_str[20] = "word1 word2";
+char chr = 'a';
+ck_assert_ptr_eq(strrchr(str, chr), s21_strrchr(s21_str, chr));

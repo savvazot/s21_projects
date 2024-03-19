@@ -1,0 +1,58 @@
+#include <limits.h>
+
+#include "../s21_string.h"
+
+#suite s21_sprintf_string
+
+// Global variables as fixtures.
+char *src = "ordinary string";
+wchar_t *wchar_src = L"ordinary string";
+char std_dest_str[3000], s21_dest_str[3000];
+int std_result, s21_result;
+
+#test s21_sprintf_string_specifier_only
+// Only s specifier without anything else
+std_result = sprintf(std_dest_str, "%s", src);
+s21_result = s21_sprintf(s21_dest_str, "%s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_string_width_flag
+// Only s specifier with width flag
+std_result = sprintf(std_dest_str, "%50s", src);
+s21_result = s21_sprintf(s21_dest_str, "%50s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_string_width_flag_left_justified
+// Only s specifier with width flag and left justified
+std_result = sprintf(std_dest_str, "%-50s", src);
+s21_result = s21_sprintf(s21_dest_str, "%-50s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_string_precision_is_set_less_than_size
+// Only s specifier with precision that is less than string size
+std_result = sprintf(std_dest_str, "%.5s", src);
+s21_result = s21_sprintf(s21_dest_str, "%.5s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_string_precision_is_set_but_sting_is_bigger
+// Only s specifier with precision that is bigger than string
+std_result = sprintf(std_dest_str, "%.70s", src);
+s21_result = s21_sprintf(s21_dest_str, "%.70s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_string_precision_and_width
+// Only s specifier with precision and width
+std_result = sprintf(std_dest_str, "%60.10s", src);
+s21_result = s21_sprintf(s21_dest_str, "%60.10s", src);
+ck_assert_str_eq(std_dest_str, s21_dest_str);
+ck_assert_int_eq(std_result, s21_result);

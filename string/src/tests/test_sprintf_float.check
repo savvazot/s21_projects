@@ -1,0 +1,100 @@
+#include <limits.h>
+#include <math.h>
+
+#include "../s21_string.h"
+
+#suite s21_sprintf_float
+
+// Global variables as fixtures.
+char std_dest[100], s21_dest[100];
+int std_result, s21_result;
+
+
+#test s21_sprintf_float_specifier_only
+// Only f specifier without anything else
+std_result = sprintf(std_dest, "%f", 324.0000);
+s21_result = s21_sprintf(s21_dest, "%f", 324.0000);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_precision_two
+// Only f specifier with precision 2
+double d_value = 1999.99991212;
+std_result = sprintf(std_dest, "%.2f", d_value);
+s21_result = s21_sprintf(s21_dest, "%.2f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_precision_ten
+// Only f specifier with precision 10
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "%.10f", d_value);
+s21_result = s21_sprintf(s21_dest, "%.10f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_precision_zero
+// Only f specifier with precision zero
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "%.f", d_value);
+s21_result = s21_sprintf(s21_dest, "%.f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_long_float_width_50
+// Only f specifier with width 50 and precision 10
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "%50.10f", d_value);
+s21_result = s21_sprintf(s21_dest, "%50.10f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_space_flag
+// Only f specifier with flag ` `
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "% f", d_value);
+s21_result = s21_sprintf(s21_dest, "% f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_plus_flag
+// Only f specifier with flag `+`
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "%+f", d_value);
+s21_result = s21_sprintf(s21_dest, "%+f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_left_justified_flag
+// Only f specifier with flag `-`
+double d_value = 1999.9999121209;
+std_result = sprintf(std_dest, "%-50f", d_value);
+s21_result = s21_sprintf(s21_dest, "%-50f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_space_flag_with_negative
+// Only f specifier with space flag with negative
+double d_value = -1999.9999121209;
+std_result = sprintf(std_dest, "% f", d_value);
+s21_result = s21_sprintf(s21_dest, "% f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+
+
+#test s21_sprintf_float_plus_flag_with_negative
+// Only f specifier with plus flag with negative
+double d_value = -1999.9999121209;
+std_result = sprintf(std_dest, "%+50f", d_value);
+s21_result = s21_sprintf(s21_dest, "%+50f", d_value);
+ck_assert_str_eq(std_dest, s21_dest);
+ck_assert_int_eq(std_result, s21_result);
+

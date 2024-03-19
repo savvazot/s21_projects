@@ -1,0 +1,21 @@
+#include "../s21_string.h"
+
+#suite s21_to_lower
+
+#test s21_to_lower_first
+char string[] = "qwertyQWERTY12345";
+char *fin = s21_to_lower(string);
+ck_assert_str_eq(fin, "qwertyqwerty12345");
+free(fin);
+
+#test s21_to_lower_second
+char string[] = "1234545";
+char *fin = s21_to_lower(string);
+ck_assert_str_eq(fin, "1234545");
+free(fin);
+
+#test s21_to_lower_null_string
+char string[] = "";
+char *fin = s21_to_lower(string);
+ck_assert_str_eq(fin, "");
+free(fin);

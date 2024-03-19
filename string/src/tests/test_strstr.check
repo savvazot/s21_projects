@@ -1,0 +1,24 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strstr
+
+#test s21_strstr_normal_behavior_case_1
+char string[] = "Hello World";
+char substring[] = "Hello";
+ck_assert_str_eq(strstr(string, substring), s21_strstr(string, substring));
+
+#test s21_strstr_normal_behavior_case_2
+char string[] = "Good luck";
+char substring[] = "debug";
+ck_assert_ptr_eq(strstr(string, substring), s21_strstr(string, substring));
+
+#test s21_strstr_empty_string
+char string[] = "";
+char substring[]= "Hello";
+ck_assert_ptr_eq(strstr(string, substring), s21_strstr(string, substring));
+
+#test s21_strstr_string_with_null_character
+char string[] = "Some text\0 Another text after null";
+char substring[] = "null";
+ck_assert_ptr_eq(strstr(string, substring), s21_strstr(string, substring));

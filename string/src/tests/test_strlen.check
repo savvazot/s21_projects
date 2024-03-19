@@ -1,0 +1,20 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strlen
+
+#test strlen1
+char* str1 = "Hello, World!";
+ck_assert_int_eq(strlen(str1),s21_strlen(str1));
+
+#test strlen2
+char* str1 = "1234 sfdg f !";
+ck_assert_int_eq(strlen(str1),s21_strlen(str1));
+
+#test strlen_empty_str
+char* str1 = "";
+ck_assert_int_eq(strlen(str1),s21_strlen(str1));
+
+#test strlen_null
+char* str1 = "Hello\0 Worl\0d";
+ck_assert_int_eq(strlen(str1),s21_strlen(str1));

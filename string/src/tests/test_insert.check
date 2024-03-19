@@ -1,0 +1,64 @@
+#include "../s21_string.h"
+
+#suite s21_insert
+
+#test s21_insert_string_first
+char string[] = "QWERTY";
+char insert[] = " ";
+char *fin = s21_insert(string, insert, 0);
+ck_assert_str_eq(fin, " QWERTY");
+free(fin);
+
+#test s21_insert_string_second
+char string[] = "123456789";
+char insert[] = " ";
+char *fin = s21_insert(string, insert, 9);
+ck_assert_str_eq(fin, "123456789 ");
+free(fin);
+
+#test s21_insert_string_third
+char string[] = "ALHA";
+char insert[] = "LOHHHh";
+char *fin = s21_insert(string, insert, 2);
+ck_assert_str_eq(fin, "ALLOHHHhHA");
+free(fin);
+
+#test s21_insert_not_insert_first
+char string[] = "qwertytest1";
+char insert[] = "Qwertytest2";
+char *fin = s21_insert(string, insert, -1);
+ck_assert_pstr_eq(fin, s21_NULL);
+
+#test s21_insert_not_insert_second
+char string[] = "aaabbb";
+char insert[] = "Qwertytest2";
+char *fin = s21_insert(string, insert, 7);
+ck_assert_pstr_eq(fin, s21_NULL);
+
+#test s21_insert_in_empty_string
+char string[] = "";
+char insert[] = "Qwertytest2";
+char *fin = s21_insert(string, insert, 0);
+ck_assert_str_eq(fin, "Qwertytest2");
+free(fin);
+
+#test s21_insert_empty_string_first
+char string[] = "Qwertytest2";
+char insert[] = "";
+char *fin = s21_insert(string, insert, 0);
+ck_assert_str_eq(fin, "Qwertytest2");
+free(fin);
+
+#test s21_insert_empty_string_second
+char string[] = "Qwertytest2";
+char insert[] = "";
+char *fin = s21_insert(string, insert, 4);
+ck_assert_str_eq(fin, "Qwertytest2");
+free(fin);
+
+#test s21_insert_empty_string_third
+char string[] = "Qwertytest2";
+char insert[] = "";
+char *fin = s21_insert(string, insert, 11);
+ck_assert_str_eq(fin, "Qwertytest2");
+free(fin);

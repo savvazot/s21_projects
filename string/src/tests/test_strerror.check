@@ -1,0 +1,58 @@
+#include <errno.h>
+#include <string.h>
+#include "../s21_string.h"
+
+#suite s21_strerror
+
+#test s21_strerror_null_error
+// Test null error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(0), s21_strerror(0));
+
+#test s21_strerror_EADDRNOTAVAIL
+// Test EADDRNOTAVAIL error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EADDRNOTAVAIL), s21_strerror(EADDRNOTAVAIL));
+
+#test s21_strerror_EMULTIHOP
+// Test EMULTIHOP error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EMULTIHOP), s21_strerror(EMULTIHOP));
+
+#test s21_strerror_EXDEV
+// Test EXDEV error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EXDEV), s21_strerror(EXDEV));
+
+#test s21_strerror_UNKNOWN_ERROR
+// Test UNKNOWN_ERROR error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(-1000), s21_strerror(-1000));
+
+#test s21_strerror_EHOSTDOWN
+// Test EHOSTDOWN error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EHOSTDOWN), s21_strerror(EHOSTDOWN));
+
+#test s21_strerror_ENOTBLK
+// Test ENOTBLK error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(ENOTBLK), s21_strerror(ENOTBLK));
+
+#test s21_strerror_EPFNOSUPPORT
+// Test EPFNOSUPPORT error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EPFNOSUPPORT), s21_strerror(EPFNOSUPPORT));
+
+#test s21_strerror_EREMOTE
+// Test EREMOTE error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EREMOTE), s21_strerror(EREMOTE));
+
+#test s21_strerror_ESHUTDOWN
+// Test ESHUTDOWN error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(ESHUTDOWN), s21_strerror(ESHUTDOWN));
+
+
+#test s21_strerror_ESOCKTNOSUPPORT
+// Test ESOCKTNOSUPPORT error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(ESOCKTNOSUPPORT), s21_strerror(ESOCKTNOSUPPORT));
+
+#test s21_strerror_ETOOMANYREFS
+// Test ETOOMANYREFS error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(ETOOMANYREFS), s21_strerror(ETOOMANYREFS));
+
+#test s21_strerror_EUSERS
+// Test EUSERS error string message. It should match OS specific error.
+ck_assert_str_eq(strerror(EUSERS), s21_strerror(EUSERS));

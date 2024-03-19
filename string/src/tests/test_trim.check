@@ -1,0 +1,38 @@
+#include "../s21_string.h"
+
+#suite s21_trim
+
+#test s21_trim_string_of_chars
+char string[] = "QWERTY";
+char trim[] = "TYWQ";
+char *fin = s21_trim(string, trim);
+ck_assert_str_eq(fin, "ER");
+free(fin);
+
+#test s21_trim_string_of_numbers
+char string[] = "123456789";
+char trim[] = "13689";
+char *fin = s21_trim(string, trim);
+ck_assert_str_eq(fin, "234567");
+free(fin);
+
+#test s21_trim_not_trim_first
+char string[] = "";
+char trim[] = "13689";
+char *fin = s21_trim(string, trim);
+ck_assert_str_eq(fin, "");
+free(fin);
+
+#test s21_trim_not_trim_second
+char string[] = "qwertytest1";
+char trim[] = "Qwertytest2";
+char *fin = s21_trim(string, trim);
+ck_assert_str_eq(fin, "qwertytest1");
+free(fin);
+
+#test s21_trim_too_trim
+char string[] = "QWERTY12345";
+char trim[] = "Y1T2R3E4W5Q";
+char *fin = s21_trim(string, trim);
+ck_assert_str_eq(fin, "");
+free(fin);

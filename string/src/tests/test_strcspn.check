@@ -1,0 +1,34 @@
+#include "../s21_string.h"
+#include <string.h>
+
+#suite s21_strcspn
+
+#test s21_strcspn_normal_behavior_case_1
+char str1[] = "ABCDEFG01234";
+char str2[] = "01234";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
+
+#test s21_strcspn_normal_behavior_case_2
+char str1[] = "ABCD";
+char str2[] = "CD";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
+
+#test s21_strcspn_str1_is_null
+char str1[] = "\0";
+char str2[] = "CD";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
+
+#test s21_strcspn_str2_is_null
+char str1[] = "ABCD";
+char str2[] = "\0";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
+
+#test s21_strcspn_null_inside_str1
+char str1[] = "ABCD\0ED";
+char str2[] = "ED";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
+
+#test s21_strcspn_null_inside_str2
+char str1[] = "ABCDED";
+char str2[] = "\0A";
+ck_assert_int_eq(strcspn(str1, str2), s21_strcspn(str1, str2));
